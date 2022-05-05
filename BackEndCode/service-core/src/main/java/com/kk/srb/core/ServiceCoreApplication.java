@@ -1,11 +1,12 @@
 package com.kk.srb.core;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@MapperScan({"com.kk.srb.core.mapper"})// 需要指定指定路径
+//@MapperScan({"com.kk.srb"})// 需要指定指定路径
+@ComponentScan({"com.kk.srb","com.kk.common"})
 public class ServiceCoreApplication {
 
     public static void main(String[] args) {

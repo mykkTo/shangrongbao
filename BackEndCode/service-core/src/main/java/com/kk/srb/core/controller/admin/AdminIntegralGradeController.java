@@ -1,6 +1,8 @@
 package com.kk.srb.core.controller.admin;
 
+import com.kk.common.exception.Assert;
 import com.kk.common.result.R;
+import com.kk.common.result.ResponseEnum;
 import com.kk.srb.core.pojo.entity.IntegralGrade;
 import com.kk.srb.core.service.IntegralGradeService;
 import io.swagger.annotations.Api;
@@ -25,6 +27,13 @@ public class AdminIntegralGradeController {
     public R save(
             @ApiParam(value = "积分等级对象", required = true)
             @RequestBody IntegralGrade integralGrade) {
+        //如果借款额度为空就手动抛出一个自定义的异常！
+//        if(integralGrade.getBorrowAmount() == null){
+//            //BORROW_AMOUNT_NULL_ERROR(-201, "借款额度不能为空"),
+//            throw new BusinessException (ResponseEnum.BORROW_AMOUNT_NULL_ERROR);
+//        }
+        Assert.notNull(integralGrade.getBorrowAmount(), ResponseEnum.BORROW_AMOUNT_NULL_ERROR);
+
         boolean result = integralGradeService.save (integralGrade);
         if (result) {
             return R.ok ( ).message ("保存成功");
