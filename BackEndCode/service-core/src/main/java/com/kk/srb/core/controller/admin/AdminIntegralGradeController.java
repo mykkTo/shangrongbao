@@ -8,6 +8,7 @@ import com.kk.srb.core.service.IntegralGradeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/core/integralGrade")
 @Api(tags = "积分等级管理")
+@Slf4j
 public class AdminIntegralGradeController {
 
     @Resource
@@ -32,7 +34,7 @@ public class AdminIntegralGradeController {
 //            //BORROW_AMOUNT_NULL_ERROR(-201, "借款额度不能为空"),
 //            throw new BusinessException (ResponseEnum.BORROW_AMOUNT_NULL_ERROR);
 //        }
-        Assert.notNull(integralGrade.getBorrowAmount(), ResponseEnum.BORROW_AMOUNT_NULL_ERROR);
+        Assert.notNull (integralGrade.getBorrowAmount ( ), ResponseEnum.BORROW_AMOUNT_NULL_ERROR);
 
         boolean result = integralGradeService.save (integralGrade);
         if (result) {
@@ -44,8 +46,14 @@ public class AdminIntegralGradeController {
 
     @GetMapping("/list")
     @ApiOperation("积分等级列表")
-    public List<IntegralGrade> listAll() {
-        return integralGradeService.list ( );
+    public R listAll() {
+
+        log.info ("hi i'm helen");
+        log.warn ("warning!!!");
+        log.error ("it's a error");
+
+        List<IntegralGrade> list = integralGradeService.list ( );
+        return R.ok ( ).data ("list", list);
     }
 
     @ApiOperation("更新积分等级")
